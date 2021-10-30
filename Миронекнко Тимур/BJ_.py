@@ -12,27 +12,35 @@ class BJ_card(Card.Positionable_Card):
             v = BJ_card.RANKS.index(self.rank) + 1
             if v > 10:
                 v = 10
-            else:
-                v = None
-            return v        
+        else:
+            v = None
+        return v  
+
+
 class BJ_Deck(Card.Deck):
     """колода"""
+    def clear(self):
+        self.clear
     def populate(self):
-        for suit in BJ_card.SUITS:
-            for rank in BJ_card.RANKS:
-                self.cards.append(BJ_card(rank, suit))
+            for suit in BJ_card.SUITS:
+                for rank in BJ_card.RANKS:
+                    self.cards.append(BJ_card(rank, suit))               
+              
+                
 
 
 class BJ_Hand(Card.Hand):
     """"""
     def __init__(self, name):
         super().__init__()
-        self.name = name 
+        self.name = name
+
     def __str__(self):
         rep = self.name + ":\t" + super().__str__()
         if self.total:
             rep += "(" + str(self.total) + ")"
-            return rep     
+        return rep 
+           
     @property
     def total(self):
         # если карта из Value = None
@@ -61,7 +69,7 @@ class BJ_Hand(Card.Hand):
 class BJ_Player(BJ_Hand):
     """игрок"""
     def is_hitting(self):
-        response = games.ack_yes_no("\n" + self.name +", будете брать еще карты?")
+        response = games.ask_yes_no("\n" + self.name + ", будете брать еще карты?")
         return response == "y"
     def bust(self):
         print(self.name, "перебрал(а).")
@@ -119,7 +127,11 @@ class BJ_Game:
 
 
     def play(self):
-        if len(self.deck.cards) < 52:
+        if len(self.deck.cards) < 156:
+            self.deck.clear()
+            self.deck.populate()
+            self.deck.populate()
+            self.deck.populate()
             self.deck.populate()
             self.deck.shuffle()
 
