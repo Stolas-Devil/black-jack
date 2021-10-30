@@ -1,4 +1,4 @@
-
+ 
 import Card, games
 
 
@@ -20,7 +20,7 @@ class BJ_Deck(Card.Deck):
     def populate(self):
         for suit in BJ_card.SUITS:
             for rank in BJ_card.RANKS:
-                self.cards.appende=(BJ_card(rank, suit))
+                self.cards.append(BJ_card(rank, suit))
 
 
 class BJ_Hand(Card.Hand):
@@ -117,7 +117,12 @@ class BJ_Game:
             if player.is_busted():
                 player.bust()
 
+
     def play(self):
+        if self.deck < 54:
+            self.deck.populate()
+            self.deck.shuffle()
+
         # раздача по 2 карты
         self.deck.deal(self.players + [self.dealer], per_hand = 2)
         self.dealer.flip_first_card()
@@ -165,8 +170,10 @@ def main():
         name = input("ВВедите имя игрока" + str(i + 1) + " :")
         names.append(name)
     print()
-    game = BJ_Game(names)    
+    game = BJ_Game(names)
+    again=None 
+    while again !="n": 
+        game.play() 
+        again=games.ask_yes_no("\nХотите сыграть ещё раз")     
 
 main()
-
-                                        
