@@ -1,4 +1,4 @@
- 
+
 import Card, games
 
 
@@ -119,7 +119,7 @@ class BJ_Game:
 
 
     def play(self):
-        if self.deck < 54:
+        if len(self.deck.cards) < 52:
             self.deck.populate()
             self.deck.shuffle()
 
